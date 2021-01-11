@@ -1,6 +1,7 @@
 package router
 
 import (
+	"os"
 	"gin-todo/controllers"
 
 	"github.com/gin-contrib/sessions"
@@ -33,5 +34,7 @@ func Router(dbConn *gorm.DB, UserDB *gorm.DB) {
 	r.POST("/todo/edit/:id", todoHandler.UpdateTask)
 	r.POST("/todo/delete/:id", todoHandler.DeleteTask)
 	r.POST("/user/delete/:id", todoHandler.DeleteUser)
-	r.Run(":4000")
+
+	port := os.Getenv("PORT")
+	r.Run(":" + port)
 }
