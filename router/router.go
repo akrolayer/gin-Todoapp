@@ -36,5 +36,9 @@ func Router(dbConn *gorm.DB, UserDB *gorm.DB) {
 	r.POST("/user/delete/:id", todoHandler.DeleteUser)
 
 	port := os.Getenv("PORT")
-	r.Run(":" + port)
+	if port != ""{
+		r.Run(":" + port)
+	}else{
+		r.Run(":8080")
+	}
 }
