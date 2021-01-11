@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>TODOリスト ユーザ一覧</title>
+        <link rel= "stylesheet" type="text/css" href="../assets/css/alluser.css">
+    </head>
+<body>
+    <table>
+        <tr>
+            <td>User</td>
+            <td>Admin</td>
+            <td>削除</td>
+        </tr>
+        {{range .users}}
+            <tr>
+                <td>{{.Account}}</td>
+                <td>{{.Admin}}</td>
+                <td>
+                <form class = "button" action="/user/delete/{{.ID}}" method="POST">
+                    <input type="submit" value="削除">
+                </form>
+                </td>
+
+            </tr>
+        {{end}}
+    </table>
+<a href = "/todo">戻る</a>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <link rel= "stylesheet" type="text/css" href="../assets/css/register.css">
+        <title>TODOリスト ユーザ登録</title>
+    </head>
+<body>
+    <form class="box" action= "register/user" method="POST">
+        ID<input type="text" name="ID">
+        Password<input type="password" name="pass">
+        Re-enter password<input type="password" name="pass2">
+        管理者権限<input type="checkbox" name= "admin">
+        <input type="submit" value="登録">      
+    </form>
+    <a href = "/todo">戻る</a>
+    {{template "alluser" .}}
+    
+</body>
+</html>

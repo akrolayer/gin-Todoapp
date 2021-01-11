@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link rel= "stylesheet" type="text/css" href="../assets/css/index.css">
+    <title>TODOリスト</title>
+</head>
+<body>
+
+    <form class="box" action="/todo/create" method="POST">
+        新規追加Todoを入力<input type="text" name="text" value="">
+        <select name="status" id="">
+            <option value="1">未対応</option>
+            <option value="2">対応中</option>
+            <option value="3">完了</option>
+        </select>
+        <input type="submit" value="送信">
+    </form>
+<table>
+    <tr>
+        <td>TODO</td>
+        <td>ステータス</td>
+        <td>ユーザー</td>
+        <td>編集</td>
+    </tr>
+    {{range .todos}}
+        <tr>
+            <td>{{.Text}}</td>
+            <td>
+                {{if eq .Status 1}}
+                未対応
+                {{else if eq .Status 2}}
+                対応中
+                {{else if eq .Status 3}}
+                完了
+                {{end}}
+            </td>
+            <td>{{.User}}</td>
+            <td><a href="/todo/{{.ID}}">編集</a></td>
+        </tr>
+    {{end}}
+</table>
+<div class="links">
+    <div class="box">
+        {{ if eq .admin true }}
+            <a href = "/register">ユーザ登録</a>
+            <a href = "/alluser">ユーザ一覧</a>
+        {{ end }}
+        <a href = "/login">ログアウト</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{{define "alluser"}}
+<table>
+    <tr>
+        <td>User</td>
+        <td>Admin</td>
+    </tr>
+    {{range .users}}
+        <tr>
+            <td>{{.Account}}</td>
+            <td>{{.Admin}}</td>
+        </tr>
+    {{end}}
+</table>
+{{end}}

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <link rel= "stylesheet" type="text/css" href="../assets/css/login.css">
+        <title>TODOリスト 認証</title>
+    </head>
+<body>
+    <form class="box" action="/login/:account" method="POST">
+        ID<input type="text" name="account">
+        Password<input type="password" name="pass">
+        <input type="submit" value="サインイン">   
+    </form>
+    <!-- {{template "alluser" .}} -->
+</body>
