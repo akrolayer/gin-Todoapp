@@ -22,8 +22,8 @@ func Router(dbConn *gorm.DB, UserDB *gorm.DB) {
 
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/assets", "./assets")
-	r.GET("/login", todoHandler.AuthTest)
-	r.POST("/login/:account", todoHandler.Login)
+	r.GET("/", todoHandler.AuthTest)
+	r.POST("/:account", todoHandler.Login)
 	r.GET("/register", todoHandler.Register)
 	r.POST("/register/user", todoHandler.RegisterPOST)
 	r.POST("/logout", todoHandler.Logout)
