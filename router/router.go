@@ -1,8 +1,8 @@
 package router
 
 import (
-	"os"
 	"gin-todo/controllers"
+	"os"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -31,14 +31,14 @@ func Router(dbConn *gorm.DB, UserDB *gorm.DB) {
 	r.GET("/alluser", todoHandler.GetAllUser)
 	r.POST("/todo/create", todoHandler.CreateTask)
 	r.GET("/todo/:id", todoHandler.EditTask)
-	r.POST("/todo/edit/:id", todoHandler.UpdateTask)
+	r.POST("/todo/:id/edit", todoHandler.UpdateTask)
 	r.POST("/todo/delete/:id", todoHandler.DeleteTask)
 	r.POST("/user/delete/:id", todoHandler.DeleteUser)
 
 	port := os.Getenv("PORT")
-	if port != ""{
+	if port != "" {
 		r.Run(":" + port)
-	}else{
+	} else {
 		r.Run(":8080")
 	}
 }

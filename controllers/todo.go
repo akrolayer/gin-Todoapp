@@ -107,7 +107,7 @@ func (h *TodoHandler) Login(c *gin.Context) {
 		return
 	}
 	if err != nil {
-		c.Redirect(http.StatusMovedPermanently, "/login")
+		c.Redirect(http.StatusMovedPermanently, "/")
 		return
 	}
 	if user.Admin {

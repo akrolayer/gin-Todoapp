@@ -80,3 +80,23 @@ table{
 .button input [type="submit"]:hover{
     background: #2ecc71;
 }
+
+a{
+  padding: 20px 10px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 50%, rgb(79, 103, 114) 50%);
+  background-position: 0 0;
+  background-size: 200% auto;
+  transition: .3s;
+  font-size: 15pt;
+  font-weight: bold;
+}
+a:link{
+  color: #a8b7c5;
+}
+a:visited{
+  color: #a8b7c5;
+}
+a:hover{
+  background-position: -100% 0;
+  color: #fff;
+}
