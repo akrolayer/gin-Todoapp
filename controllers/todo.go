@@ -188,11 +188,6 @@ func (h *TodoHandler) UpdateTask(c *gin.Context) {
 	text, _ := c.GetPostForm("text")
 	status, _ := c.GetPostForm("status")
 	istatus, _ := strconv.ParseUint(status, 10, 32)
-	h.Db.First(&todo, text)
-	if todo.Text != text {
-		c.Redirect(http.StatusMovedPermanently, "/todo")
-		return
-	}
 	h.Db.First(&todo, id)
 	todo.Text = text
 	todo.Status = istatus
