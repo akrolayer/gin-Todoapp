@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link rel= "stylesheet" type="text/css" href="../assets/css/edit.css">
+    <title>TODOリスト 編集</title>
+</head>
+<body>
+    <form class="box" action="/user/edit/{{.user.ID}}" method="POST">
+        ID<input type="text" name="ID" value="{{.user.Account}}"><br>
+        Password<input type="text" name="ID" value="{{.user.Pass}}"><br>
+        <input type="submit" value="更新">
+    </form>
+
+    <a href = "/todo">戻る</a>
+</body>
+</html>
+

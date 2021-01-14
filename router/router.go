@@ -34,6 +34,7 @@ func Router(dbConn *gorm.DB, UserDB *gorm.DB) {
 	r.POST("/todo/edit/:id", todoHandler.UpdateTask)
 	r.POST("/todo/delete/:id", todoHandler.DeleteTask)
 	r.POST("/user/delete/:id", todoHandler.DeleteUser)
+	r.GET("/user/edit", todoHandler.EditUser)
 
 	port := os.Getenv("PORT")
 	if port != "" {

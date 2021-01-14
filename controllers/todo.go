@@ -195,6 +195,15 @@ func (h *TodoHandler) UpdateTask(c *gin.Context) {
 	c.Redirect(http.StatusMovedPermanently, "/todo")
 }
 
+func (h *TodoHandler) EditUser(c *gin.Context) {
+	user := models.User{}
+	id := c.Param("id")
+	h.UserDb.First(&user, id)
+	c.HTML(http.StatusOK, "userEdit.html", gin.H{
+		"user": user,
+	})
+}
+
 func (h *TodoHandler) DeleteTask(c *gin.Context) {
 	todo := models.Todo{}
 	id := c.Param("id")
@@ -219,7 +228,7 @@ func sessionCheck(c *gin.Context) {
 	//セッションがない場合、ログインフォームを出す
 	if UserId == nil {
 		fmt.Println("ログインしていません")
-		c.Redirect(http.StatusMovedPermanently, "/login")
+		c.Redirect(http.StatusMovedPermanently, "/")
 		c.Abort()
 	} else {
 		c.Set("UserId", LoginInfo.UserId) // ユーザidをセット
