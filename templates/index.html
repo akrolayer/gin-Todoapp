@@ -6,7 +6,7 @@
     <title>TODOリスト</title>
 </head>
 <body>
-
+    {{template "alluser.html" }}
     <form class="box" action="/todo/create" method="POST">
         新規追加Todoを入力<input type="text" name="text" value="">
         <select name="status" id="">
@@ -47,7 +47,7 @@
             <a href = "/alluser">ユーザ一覧</a><br>
         {{ end }}
         <a href = "/">ログアウト</a><br>
-        <!-- <a href = "/user/edit">ユーザ情報編集</a><br> -->
+        <a href = "/user/edit">ユーザ編集</a><br>
     </div>
 </div>
 </body>

@@ -22,7 +22,7 @@ func Router(dbConn *gorm.DB, UserDB *gorm.DB) {
 
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/assets", "./assets")
-	r.GET("/", todoHandler.AuthTest)
+	r.GET("/", todoHandler.LoginPage)
 	r.POST("login/:account", todoHandler.Login)
 	r.GET("/register", todoHandler.Register)
 	r.POST("/register/user", todoHandler.RegisterPOST)
@@ -35,7 +35,7 @@ func Router(dbConn *gorm.DB, UserDB *gorm.DB) {
 	r.POST("/todo/delete/:id", todoHandler.DeleteTask)
 	r.POST("/user/delete/:id", todoHandler.DeleteUser)
 	r.GET("/user/edit", todoHandler.EditUser)
-
+	r.POST("/user/edit/update", todoHandler.UpdateUser)
 	port := os.Getenv("PORT")
 	if port != "" {
 		r.Run(":" + port)

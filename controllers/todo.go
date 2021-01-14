@@ -15,6 +15,7 @@ import (
 
 var admin = false
 var currentUser string
+var notzero = true
 
 type TodoHandler struct {
 	Db     *gorm.DB
@@ -27,21 +28,31 @@ type SessionInfo struct {
 
 var LoginInfo SessionInfo
 
-func (h *TodoHandler) AuthTest(c *gin.Context) {
+func (h *TodoHandler) LoginPage(c *gin.Context) {
 	admin = false
 	h.Logout(c)
 	var users []models.User
 	h.UserDb.Find(&users)
-	c.HTML(http.StatusOK, "login.html", gin.H{
-		"users": users,
-	})
+	if len(users) == 0 {
+		c.HTML(http.StatusOK, "register.html", gin.H{
+			"users": users,
+		})
+	} else {
+		c.HTML(http.StatusOK, "login.html", gin.H{
+			"users": users,
+		})
+	}
 }
 
 func (h *TodoHandler) Register(c *gin.Context) {
 	var users []models.User
 	h.UserDb.Find(&users)
+	if len(users) == 0 {
+		notzero = false
+	}
 	c.HTML(http.StatusOK, "register.html", gin.H{
-		"users": users,
+		"users":   users,
+		"notzero": notzero,
 	})
 }
 
@@ -66,6 +77,7 @@ func (h *TodoHandler) RegisterPOST(c *gin.Context) {
 	h.UserDb.Find(&user, account)
 	if len(user) == 1 {
 		c.Redirect(http.StatusMovedPermanently, "/register")
+		fmt.Println("登録に失敗しました")
 		return
 	}
 	admin := c.PostForm("admin")
@@ -74,7 +86,6 @@ func (h *TodoHandler) RegisterPOST(c *gin.Context) {
 		BoolAdmin = false
 	}
 
-	fmt.Print("hash")
 	hash, err := bcrypt.GenerateFromPassword([]byte(pass), 12)
 
 	if err != nil {
@@ -196,12 +207,32 @@ func (h *TodoHandler) UpdateTask(c *gin.Context) {
 }
 
 func (h *TodoHandler) EditUser(c *gin.Context) {
-	user := models.User{}
-	id := c.Param("id")
-	h.UserDb.First(&user, id)
+	session := sessions.Default(c)
+	id := session.Get("UserId")
 	c.HTML(http.StatusOK, "userEdit.html", gin.H{
-		"user": user,
+		"id": id,
 	})
+}
+
+func (h *TodoHandler) UpdateUser(c *gin.Context) {
+	user := models.User{}
+	session := sessions.Default(c)
+	id := session.Get("UserId")
+	account, _ := c.GetPostForm("ID")
+	pass, _ := c.GetPostForm("Pass")
+	hash, err := bcrypt.GenerateFromPassword([]byte(pass), 12)
+	fmt.Println(hash)
+	if err != nil {
+		fmt.Println("failure")
+		c.Redirect(http.StatusMovedPermanently, "/user/edit")
+		return
+	}
+	h.UserDb.Where("Account = ?", id).First(&user)
+	//h.UserDb.First(&user, id)
+	user.Account = account
+	user.Pass = hash
+	h.UserDb.Save(&user)
+	c.Redirect(http.StatusMovedPermanently, "/user/edit")
 }
 
 func (h *TodoHandler) DeleteTask(c *gin.Context) {
